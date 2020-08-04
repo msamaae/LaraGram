@@ -13,9 +13,8 @@ class ProfilesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        return view('profiles.show');
     }
 
     /**
@@ -45,9 +44,11 @@ class ProfilesController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show(User $user)
     {
-        //
+        // dd($user->profile->description);
+
+        return view('profiles.show', compact('user'));
     }
 
     /**

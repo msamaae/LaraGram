@@ -7,22 +7,17 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" alt="" class="w-80">
         </div>
         <div class="col-8 pt-5">
-            {{-- Username --}}
-            <h1>LaraGram</h1>
-            {{-- Posts, followers, following --}}
+            <h1>{{ $user->username }}</h1>
             <div class="d-flex">
                 <div class="mr-5"><strong>123</strong> posts</div>
                 <div class="mr-5"><strong>123</strong> followers</div>
                 <div class="mr-5"><strong>123</strong> following</div>
             </div>
-            {{-- Title --}}
             <div>
-                <strong>LaraGram</strong>
+                <strong>{{ $user->profile->title }}</strong>
             </div>
-            {{-- Description --}}
-            <div>Description Text</div>
-            {{-- URL --}}
-            URL
+            <div>{{ $user->profile->description }}</div>
+            <div>{{ $user->profile->url }}</div>            
         </div>
     </div>
 

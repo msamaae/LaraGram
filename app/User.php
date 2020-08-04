@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Eloquent Relationship 
+    // A User have one Profile
+    public function profile()
+    {
+        // We don't need to use App\Profile because they belong in the same namespace
+        return $this->hasOne(Profile::class);
+    }
 }
