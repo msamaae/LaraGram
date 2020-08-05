@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
+    public function __constructor()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,11 +48,18 @@ class PostsController extends Controller
             'image' => 'required'
         ]);
 
+        // Store image in storage/app/public/uploads
+        $imagePath = request('image')->store('uploads', 'public');
+
+        // dd($imagePath);
 
         // Create a Post that is related to a User
         // Get the currently authenticated User
         // Eloquent will set user_id field automatically in post table
-        Auth::user()->posts()->create($validatedData);
+        Auth::user()->posts()->create([
+            'caption' => $validatedData['caption'],
+            'image' => $imagePath
+        ]);
 
         // Get the currently authenticated ID and redirect
         return redirect('/profile/' . Auth::id());

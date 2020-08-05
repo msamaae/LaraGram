@@ -49,6 +49,7 @@ class User extends Authenticatable
     public function posts() 
     {
         // We don't need to use App\Post because they belong in the same namespace
-        return $this->hasMany(Post::class);
+        // Show the latest post first
+        return $this->hasMany(Post::class)->orderBy('created_at', 'desc');
     }
 }
