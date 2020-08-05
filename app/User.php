@@ -37,11 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Eloquent Relationship 
+    /* Eloquent Relationship  */
     // A User have one Profile
     public function profile()
     {
         // We don't need to use App\Profile because they belong in the same namespace
         return $this->hasOne(Profile::class);
+    }
+
+    // A User have many Posts
+    public function posts() 
+    {
+        // We don't need to use App\Post because they belong in the same namespace
+        return $this->hasMany(Post::class);
     }
 }

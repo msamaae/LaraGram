@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -22,9 +23,9 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -35,7 +36,19 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'caption' => 'required',
+            'image' => 'required'
+        ]);
+
+
+        // Create a Post that is related to a User
+        // Get the currently authenticated User
+        // Eloquent will set user_id field automatically in post table
+        Auth::user()->posts()->create($validatedData);
+
+        // Get the currently authenticated ID and redirect
+        return redirect('/profile/' . Auth::id());
     }
 
     /**
