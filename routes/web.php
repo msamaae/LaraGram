@@ -23,8 +23,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Profile
-Route::get('/profile/{user}', 'ProfilesController@show')->name('profile.show');
+Route::get('/profile/{user}', 'ProfilesController@index')->name('profile.index');
 
 // Post 
 Route::get('/post/create', 'PostsController@create')->name('post.create');
-Route::patch('/post', 'PostsController@store')->name('post.store');
+Route::patch('/post', 'PostsController@store')->name('post.store')->middleware('auth');
+Route::get('/post/{post}', 'PostsController@show')->name('post.show');

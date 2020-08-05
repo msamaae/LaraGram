@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
-    public function __constructor()
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -51,7 +50,12 @@ class PostsController extends Controller
         // Store image in storage/app/public/uploads
         $imagePath = request('image')->store('uploads', 'public');
 
-        // dd($imagePath);
+        // Open image file
+        // Resize image to 1200x1200
+        $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
+
+        // Save new image 
+        $image->save();
 
         // Create a Post that is related to a User
         // Get the currently authenticated User
@@ -73,7 +77,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
